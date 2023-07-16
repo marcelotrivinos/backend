@@ -36,6 +36,49 @@ The .gitignore file was modified starting from:
 * First, install pnpm from <https://pnpm.io/installation>
 * Then, execute `pnpm i`
 
+## Create SSL certificate
+
+1. Open a terminal on your Linux machine.
+2. Install OpenSSL if it's not already installed. You can typically install it using the package manager for your distribution. In Ubuntu, it is:
+
+```
+sudo apt-get install openssl
+```
+
+3. Navigate to the directory where you want to generate the SSL certificates. In this case, within the backend folder, you should create the dist folder. Within the dist folder, create the ssl folder, and within the ssl folder, generate the files.
+
+4. Generate a private key file (`key.pem`) by running the following command:
+
+```
+openssl genpkey -algorithm RSA -out key.pem
+```
+
+(This command generates a 2048-bit RSA private key.)
+
+5. Generate a certificate signing request (CSR) file (`csr.pem`) by running the following command:
+
+```
+openssl req -new -key key.pem -out csr.pem
+```
+
+(You will be prompted to provide information such as country, state, organization, etc. Fill in the required details for your SSL certificate.)
+
+6. Generate a self-signed certificate file (`cert.pem`) using the generated private key and CSR by running the following command:
+
+```
+openssl x509 -req -days 365 -in csr.pem -signkey key.pem -out cert.pem
+```
+
+(This command creates a self-signed certificate valid for 365 days.)
+
+7. You can remove the intermediate CSR file (`csr.pem`) as it is no longer needed:
+
+```
+rm csr.pem
+```
+
+This certificate is only useful for the development environment.
+
 ## Ready-to-use commands
 
 It allows building the application ready for production.
