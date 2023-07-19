@@ -9,19 +9,24 @@
 * typescript
 * eslint
 * prettier
+* sequelize
+* ts-node
 
 The pnpm package manager was used, its advantages over npm are described in:
 
-<https://pnpm.io/es/motivation>
+* <https://pnpm.io/es/motivation>
 
 The following pages were used as general guides:
 
-<https://blog.logrocket.com/how-to-set-up-node-typescript-express/>
-<https://blog.logrocket.com/linting-typescript-eslint-prettier/>
+* <https://blog.logrocket.com/how-to-set-up-node-typescript-express/>
+* <https://blog.logrocket.com/linting-typescript-eslint-prettier/>
+* <https://blog.logrocket.com/using-sequelize-with-typescript/>
+* https://www.digitalocean.com/community/tutorials/nodejs-jwt-expressjs
+* https://www.bezkoder.com/node-js-express-login-example/
 
 The .gitignore file was modified starting from:
 
-<https://github.com/github/gitignore/blob/main/Node.gitignore>
+* <https://github.com/github/gitignore/blob/main/Node.gitignore>
 
 # How to run
 
@@ -78,6 +83,17 @@ rm csr.pem
 ```
 
 This certificate is only useful for the development environment.
+
+## Database Permissions
+
+It was used a MySQL database.
+
+A table named `userdb` was created, then a user named `client` was created, and the following permissions were granted to that user.
+
+* SELECT
+* INSERT
+* UPDATE
+* DELETE
 
 ## Ready-to-use commands
 
