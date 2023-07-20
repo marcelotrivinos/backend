@@ -23,6 +23,7 @@ The following pages were used as general guides:
 * <https://blog.logrocket.com/using-sequelize-with-typescript/>
 * https://www.digitalocean.com/community/tutorials/nodejs-jwt-expressjs
 * https://www.bezkoder.com/node-js-express-login-example/
+* https://blog.logrocket.com/extend-express-request-object-typescript/
 
 The .gitignore file was modified starting from:
 
@@ -95,6 +96,19 @@ A table named `userdb` was created, then a user named `client` was created, and 
 * UPDATE
 * DELETE
 
+A table named `product` was created, then a user named `productAdmin` was created, and the following permissions were granted to that user.
+
+* SELECT
+* INSERT
+* UPDATE
+* DELETE
+
+(Those four permissions are for performing CRUD operations.)
+
+Two databases were created, each with a single table, instead of having only one database with two tables, as it is safer to have the user database separated. Additionally, the read operations on the product database will be considerably higher, and they could be synchronized with a Redis database to reduce latency.
+
+One option could be to create another database with a table to manage roles and assign them to users. This would allow for finer granularity in controlling user access, as different levels of access could be assigned to users based on their roles. It also enables a more organized and scalable management of permissions. Additionally, it simplifies the process of adding new functionalities or restrictions to users in the future, as you can simply update the permissions associated with specific roles rather than individually modifying permissions for each user.
+
 ## Ready-to-use commands
 
 It allows building the application ready for production.
@@ -123,3 +137,9 @@ pnpm run lint
 ```
 
 Note: `pnpm run format` and `pnpm run lint` could be executed in `pnpm run build`, and `pnpm run build` could be executed using Github Actions for CI (Continuous Integration).
+
+## Comments
+
+Camel case was used instead of dot notation to name the files due to a personal preference.
+
+In the user model, sequelize.define() was used since it is unlikely that the model will become more complex, and the use of sequelize.define() instead of sequelize.models is less verbose. On the other hand, in the product model, it is possible that it becomes more complex over time, and sequelize.model is more flexible and easier to maintain than sequelize.define, although it is more verbose.

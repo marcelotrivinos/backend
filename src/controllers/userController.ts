@@ -1,8 +1,11 @@
-import { Request, Response } from "express";
 import bcrypt from "bcrypt";
+import dotenv from "dotenv";
+import { Request, Response } from "express";
 import jwt from "jsonwebtoken";
 
 import User from "../models/user";
+
+dotenv.config();
 
 const UserController = {
   signup: async (req: Request, res: Response) => {
@@ -46,9 +49,13 @@ const UserController = {
       }
 
       // Generate and send the JWT token for authentication
-      const token = jwt.sign({ userId: user.id, email: user.email }, "secretKey", {
-        expiresIn: "1h",
-      });
+      const token = jwt.sign(
+        { userId: user.id, email: user.email },
+        process.env.JWT_SECRET || "your-secret-key",
+        {
+          expiresIn: "1h",
+        },
+      );
       res.json({ message: "Login successful.", token });
     } catch (error) {
       res.status(500).json({ message: "Error logging in." });

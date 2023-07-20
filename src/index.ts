@@ -6,6 +6,7 @@ import { readFileSync } from "fs";
 import { join } from "path";
 
 import userRoutes from "./routes/userRoutes";
+import productRoutes from "./routes/productRoutes";
 
 dotenv.config();
 
@@ -25,6 +26,7 @@ app.get("/", (req: Request, res: Response) => {
 });
 
 app.use(userRoutes);
+app.use(productRoutes);
 
 // Start the server
 createServer(sslOptions, app).listen({ port: port }, () => {
